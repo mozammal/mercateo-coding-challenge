@@ -1,11 +1,21 @@
 package com.mercateo.model;
 
-public class Package {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Package implements Entity {
 
   private Double capacity;
 
-  public Package(Double capacity) {
+  private List<Item> items;
+
+  public Package(Double capacity, List<Item> items) {
     this.capacity = capacity;
+    this.items = items;
+  }
+
+  public Package(Double capacity) {
+    this(capacity, new ArrayList<>());
   }
 
   public Double getCapacity() {
@@ -16,8 +26,16 @@ public class Package {
     this.capacity = capacity;
   }
 
+  public List<Item> getItems() {
+    return items;
+  }
+
+  public void setItems(List<Item> items) {
+    this.items = items;
+  }
+
   @Override
   public String toString() {
-    return "Package{" + "capacity=" + capacity + '}';
+    return "Package{" + "capacity=" + capacity + ", items=" + items + '}';
   }
 }
