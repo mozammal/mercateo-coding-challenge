@@ -1,9 +1,12 @@
 package com.mercateo.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Result implements Entity {
+
+  private BigDecimal cost = new BigDecimal(Double.MIN_VALUE);
 
   private List<Item> items;
 
@@ -17,6 +20,14 @@ public class Result implements Entity {
 
   public List<Item> getItems() {
     return items;
+  }
+
+  public BigDecimal getCost() {
+    return cost;
+  }
+
+  public void setCost(BigDecimal cost) {
+    this.cost = cost;
   }
 
   public Double getTotalWeight() {
