@@ -28,7 +28,7 @@ public class EntityScanner extends Scanner {
     } else if (EntityTokenType.SPECIAL_SYMBOLS.containsKey(Character.toString(currentChar))) {
       token = new EntitySpecialSymbolToken(fileReader);
     } else {
-      token = null;
+      token = new EntityErrorToken(fileReader);
     }
     return token;
   }

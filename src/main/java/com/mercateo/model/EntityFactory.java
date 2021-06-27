@@ -14,7 +14,10 @@ public class EntityFactory {
               Integer.valueOf(attrs.get(0)),
               Double.valueOf(attrs.get(1)),
               Money.money(
-                  new BigDecimal(attrs.get(attrs.size() - 1)), Currency.getInstance("USD")));
+                  new BigDecimal(attrs.get(attrs.size() - 1)),
+                  attrs.get(attrs.size() - 2).equals("$")
+                      ? Currency.getInstance("USD")
+                      : Currency.getInstance("EUR")));
       return item;
     } else if ("package".equalsIgnoreCase(type)) {
       return new Package(Double.valueOf(attrs.get(0)));

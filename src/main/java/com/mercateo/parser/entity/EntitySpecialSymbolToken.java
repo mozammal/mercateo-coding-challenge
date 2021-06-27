@@ -20,6 +20,7 @@ public class EntitySpecialSymbolToken extends EntityToken {
       case ')':
       case ',':
       case '€':
+      case '$':
       case ':':
         nextChar();
         break;

@@ -6,13 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EntityTokenType implements TokenType {
-
   SEMI_COLON(":"),
   LEFT_PAREN("("),
   COMMA(","),
-  DOLLAR_SIGN("€"),
+  EURO_SYMBOL("€"),
+  DOLLAR_SYMBOL("$"),
   RIGHT_PAREN(")"),
-  INTEGER, REAL, ERROR;
+  INTEGER,
+  REAL,
+  ERROR;
 
   private String text;
 

@@ -1,19 +1,13 @@
 package com.mercateo;
 
+import com.mercateo.exception.ExceptionHandler;
+import com.mercateo.exception.FileNotFoundException;
 import com.mercateo.model.Item;
-import com.mercateo.parser.entity.EntityParser;
-import com.mercateo.parser.entity.EntityScanner;
-import com.mercateo.parser.FileReader;
 import com.mercateo.model.Package;
 import com.mercateo.service.*;
 import com.mercateo.view.ConsoleDisplayView;
 import com.mercateo.view.DisplayView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class MainController {
@@ -42,21 +36,15 @@ public class MainController {
     }
   }
 
-  public static void main(String... args) {
-    String pathName = "E:/mercateo-coding-challenge/sampleInput.txt";
+  public static void main(String[] args) {
+    String pathName = "E:/mercateo-coding-challenge/src/main/resources/test";
+    Thread.currentThread().setUncaughtExceptionHandler(new ExceptionHandler());
+
+    if (args == null || args.length == 0) {
+      throw new FileNotFoundException("file not found");
+    }
 
     MainController mainController = new MainController(pathName);
     mainController.runApp();
-
-    /*
-    try (BufferedReader fileReader =
-        new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(pathName))))) {
-      EntityParser entityParser = new EntityParser(new EntityScanner(new FileReader(fileReader)));
-      List<Package> items = (List<Package>) entityParser.parse();
-      items.forEach(System.out::println);
-
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }*/
   }
 }

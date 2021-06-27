@@ -25,6 +25,17 @@ public class Token {
     nextChar();
   }
 
+  public String getTokenDetails() {
+    StringBuilder message = new StringBuilder();
+    message
+        .append("Line number: ")
+        .append(lineNumber)
+        .append("\n")
+        .append("Position number: ")
+        .append(position);
+    return message.toString();
+  }
+
   public String getText() {
     return text;
   }
