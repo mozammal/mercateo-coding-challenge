@@ -2,8 +2,8 @@ package com.mercateo.parser.entity;
 
 import com.mercateo.parser.*;
 
-import static com.mercateo.parser.FileReader.EOF;
-import static com.mercateo.parser.FileReader.EOL;
+import static com.mercateo.config.Config.EOF;
+import static com.mercateo.config.Config.EOL;
 
 public class EntityScanner extends Scanner {
 
@@ -13,12 +13,13 @@ public class EntityScanner extends Scanner {
 
   @Override
   protected Token extractToken() {
+    Token token;
     char currentChar = currentChar();
+
     if (currentChar != EOL) skipWhiteSpace();
 
-    Token token;
-
     currentChar = currentChar();
+
     if (currentChar == EOF) {
       token = new EofToken(fileReader);
     } else if (currentChar == EOL) {

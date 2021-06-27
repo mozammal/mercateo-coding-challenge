@@ -6,7 +6,7 @@ import com.mercateo.model.Entity;
 import java.io.File;
 import java.util.List;
 
-public interface ParserService {
+public interface DeserializerService {
 
   List<? extends Entity> getEntity();
 

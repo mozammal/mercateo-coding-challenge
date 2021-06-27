@@ -3,11 +3,9 @@ package com.mercateo.parser;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import static com.mercateo.config.Config.*;
+
 public class FileReader {
-
-  public static final char EOL = '\n';
-
-  public static final char EOF = (char) 0;
 
   private BufferedReader reader;
 

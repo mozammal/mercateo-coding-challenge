@@ -12,15 +12,15 @@ import java.util.List;
 
 public class MainController {
 
-  private ParserService parserService;
+  private DeserializerService deserializerService;
 
   private List<Package> packages;
 
   private DisplayView displayView;
 
   public MainController(String fileName, DisplayView displayView) {
-    this.parserService = new EntityParserService(fileName);
-    this.packages = (List<Package>) parserService.getEntity();
+    this.deserializerService = new EntityDeserializerService(fileName);
+    this.packages = (List<Package>) deserializerService.getEntity();
     this.displayView = displayView;
   }
 
@@ -32,7 +32,8 @@ public class MainController {
 
     for (Package aPackage : packages) {
       Algorithm algorithm = new BruteForceSearch();
-      PackageSolver packageSolver = new BruteForcePackageSolver(aPackage, algorithm);
+      PackagingSolverService packageSolver =
+          new BruteForcePackagingSolverService(aPackage, algorithm);
       List<Item> result = (List<Item>) packageSolver.getResult();
       renderOnConsoleView(result);
     }

@@ -4,23 +4,26 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
 
+import static com.mercateo.config.Config.*;
+
 public class EntityFactory {
 
-  public static Entity create(List<String> attrs, String type) {
+  public static Entity create(List<String> properties, String type) {
 
-    if ("item".equalsIgnoreCase(type)) {
+    if (ITEM.equalsIgnoreCase(type)) {
       Item item =
           new Item(
-              Integer.valueOf(attrs.get(0)),
-              Double.valueOf(attrs.get(1)),
+              Integer.valueOf(properties.get(0)),
+              Double.valueOf(properties.get(1)),
               Money.money(
-                  new BigDecimal(attrs.get(attrs.size() - 1)),
-                  attrs.get(attrs.size() - 2).equals("$")
-                      ? Currency.getInstance("USD")
-                      : Currency.getInstance("EUR")));
+                  new BigDecimal(properties.get(properties.size() - 1)),
+                  properties.get(properties.size() - 2).equals(DOLLAR_SYMBOL)
+                      ? Currency.getInstance(USD)
+                      : Currency.getInstance(EUR)));
       return item;
-    } else if ("package".equalsIgnoreCase(type)) {
-      return new Package(Double.valueOf(attrs.get(0)));
-    } else return null;
+    } else if (PACKAGE.equalsIgnoreCase(type)) {
+      return new Package(Double.valueOf(properties.get(0)));
+    }
+    throw new UnsupportedOperationException();
   }
 }

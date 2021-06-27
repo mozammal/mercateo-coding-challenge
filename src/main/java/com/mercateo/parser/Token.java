@@ -16,7 +16,6 @@ public class Token {
     this.fileReader = fileReader;
     this.position = fileReader.getCurrentPos();
     this.lineNumber = fileReader.getLineNumber();
-
     extract();
   }
 

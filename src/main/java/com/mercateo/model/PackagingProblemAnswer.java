@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Result implements Entity {
+public class PackagingProblemAnswer implements Entity {
 
   private BigDecimal cost = new BigDecimal(Double.MIN_VALUE);
 
   private List<Item> items;
 
-  public Result() {
+  public PackagingProblemAnswer() {
     this.items = new ArrayList<>();
   }
 

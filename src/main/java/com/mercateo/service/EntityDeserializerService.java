@@ -3,8 +3,6 @@ package com.mercateo.service;
 import com.mercateo.model.Entity;
 import com.mercateo.parser.FileReader;
 import com.mercateo.parser.Parser;
-import com.mercateo.parser.entity.EntityDeserializerParser;
-import com.mercateo.parser.entity.EntityScanner;
 import com.mercateo.parser.factory.EntityParserFactory;
 
 import java.io.BufferedReader;
@@ -15,11 +13,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class EntityParserService implements ParserService {
+import static com.mercateo.config.Config.*;
+
+public class EntityDeserializerService implements DeserializerService {
 
   private String pathName;
 
-  public EntityParserService(String pathName) {
+  public EntityDeserializerService(String pathName) {
     this.pathName = pathName;
   }
 
@@ -36,9 +36,9 @@ public class EntityParserService implements ParserService {
         absolutePath
             ? new BufferedReader(
                 new InputStreamReader(Files.newInputStream(Paths.get(pathName)), "UTF-8"))
-            : new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
+            : new BufferedReader(new InputStreamReader(inputStream, UTF))) {
       Parser entityDeserializerParser =
-          EntityParserFactory.createParser(new FileReader(fileReader), "entity-parser");
+          EntityParserFactory.createParser(new FileReader(fileReader), ENTITY_DESERIALIZER);
       List<? extends Entity> entities = entityDeserializerParser.parse();
       return entities;
     } catch (IOException e) {

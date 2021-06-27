@@ -1,7 +1,6 @@
 package com.mercateo.parser;
 
 import com.mercateo.model.Entity;
-import com.mercateo.model.Item;
 
 import java.util.List;
 

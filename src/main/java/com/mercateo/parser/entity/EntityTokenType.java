@@ -14,6 +14,7 @@ public enum EntityTokenType implements TokenType {
   RIGHT_PAREN(")"),
   INTEGER,
   REAL_NUMBER,
+  EURO_USD("EURO_SYMBOL/DOLLAR_SYMBOL"),
   ERROR;
 
   private String text;

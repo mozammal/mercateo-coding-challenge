@@ -20,12 +20,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
+import static com.mercateo.config.Config.*;
+
 public class CodingChallengeApplicationTest {
 
   private Package aPackage;
   private List<Item> items;
   private List<String> attrs;
-  private ParserService mockService;
+  private DeserializerService mockService;
   private String srcFile;
 
   @BeforeEach
@@ -35,15 +37,15 @@ public class CodingChallengeApplicationTest {
             new Item(
                 1,
                 Double.valueOf("15.3"),
-                Money.money(new BigDecimal("34"), Currency.getInstance("USD"))),
+                Money.money(new BigDecimal("34"), Currency.getInstance(USD))),
             new Item(
                 2,
                 Double.valueOf("7.3"),
-                Money.money(new BigDecimal("12"), Currency.getInstance("USD"))));
+                Money.money(new BigDecimal("12"), Currency.getInstance(USD))));
 
     this.aPackage = new Package(Double.valueOf("8"), items);
     this.attrs = Arrays.asList("1", "15.3", "$", "34");
-    this.mockService = mock(ParserService.class);
+    this.mockService = mock(DeserializerService.class);
     this.srcFile = "sampleInput.txt";
   }
 
@@ -63,7 +65,6 @@ public class CodingChallengeApplicationTest {
     MainController mainController =
         new MainController(this.srcFile, new TestConsoleDisplayView(consoleOutPut));
     mainController.runApp();
-    System.out.println(consoleOutPut);
     assertEquals(expectedResult.toString(), consoleOutPut.toString());
   }
 
@@ -71,7 +72,8 @@ public class CodingChallengeApplicationTest {
   public void deserializerParserShouldReturnNonEmptyListIfValidInput() {
     try (BufferedReader fileReader =
         new BufferedReader(new InputStreamReader(readFileFromClassPath(), "UTF-8"))) {
-      Parser parser = EntityParserFactory.createParser(new FileReader(fileReader), "entity-parser");
+      Parser parser =
+          EntityParserFactory.createParser(new FileReader(fileReader), ENTITY_DESERIALIZER);
       parser.parse();
     } catch (Exception e) {
       throw new RuntimeException("test failed");
@@ -85,9 +87,9 @@ public class CodingChallengeApplicationTest {
         InvalidTokenException.class,
         () -> {
           try (BufferedReader fileReader =
-              new BufferedReader(new InputStreamReader(readFileFromClassPath(), "UTF-8"))) {
+              new BufferedReader(new InputStreamReader(readFileFromClassPath(), UTF))) {
             Parser parser =
-                EntityParserFactory.createParser(new FileReader(fileReader), "entity-parser");
+                EntityParserFactory.createParser(new FileReader(fileReader), ENTITY_DESERIALIZER);
             parser.parse();
           }
         });
@@ -108,14 +110,14 @@ public class CodingChallengeApplicationTest {
   @Test
   public void EntityFactoryShouldReturnPackageWhenProvidedProperty() {
     Package actualPackage =
-        (Package) EntityFactory.create(Arrays.asList(String.valueOf(8)), "package");
+        (Package) EntityFactory.create(Arrays.asList(String.valueOf(8)), PACKAGE);
     assertNotNull(actualPackage);
     assertEquals(aPackage.getCapacity(), actualPackage.getCapacity());
   }
 
   @Test
   public void EntityFactoryShouldReturnItemWhenProvidedProperty() {
-    Item item = (Item) EntityFactory.create(attrs, "item");
+    Item item = (Item) EntityFactory.create(attrs, ITEM);
     assertNotNull(item);
     assertEquals(items.get(0), item);
   }
@@ -125,8 +127,9 @@ public class CodingChallengeApplicationTest {
     int expectedResultSize = 0;
     Algorithm algorithm = new BruteForceSearch();
     List<Item> items = aPackage.getItems();
-    aPackage.setItems(items.subList(0, 1));
-    PackageSolver packageSolver = new BruteForcePackageSolver(aPackage, algorithm);
+    aPackage.setItems(items.subList(ZERO, ONE));
+    PackagingSolverService packageSolver =
+        new BruteForcePackagingSolverService(aPackage, algorithm);
     List<Item> result = (List<Item>) packageSolver.getResult();
     assertEquals(expectedResultSize, result.size());
   }
@@ -136,9 +139,10 @@ public class CodingChallengeApplicationTest {
     Integer expectedItemId = 2;
     int expectedResultSize = 1;
     Algorithm algorithm = new BruteForceSearch();
-    PackageSolver packageSolver = new BruteForcePackageSolver(aPackage, algorithm);
+    PackagingSolverService packageSolver =
+        new BruteForcePackagingSolverService(aPackage, algorithm);
     List<Item> result = (List<Item>) packageSolver.getResult();
     assertEquals(expectedResultSize, result.size());
-    assertEquals(expectedItemId, result.get(0).getId());
+    assertEquals(expectedItemId, result.get(ZERO).getId());
   }
 }
