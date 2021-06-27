@@ -56,6 +56,10 @@ public class FileReader {
     try {
       line = reader.readLine();
       currentPos = -1;
+
+      if (line != null) {
+        lineNumber++;
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -20,7 +20,8 @@ public class EntityParserService implements ParserService {
   @Override
   public List<? extends Entity> getEntityFrom(String pathName) {
     try (BufferedReader fileReader =
-        new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(pathName))))) {
+        new BufferedReader(
+            new InputStreamReader(Files.newInputStream(Paths.get(pathName)), "UTF-8"))) {
       EntityParser entityParser = new EntityParser(new EntityScanner(new FileReader(fileReader)));
       List<? extends Entity> entities = entityParser.parse();
       return entities;

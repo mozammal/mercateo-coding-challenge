@@ -15,19 +15,19 @@ public class EntitySpecialSymbolToken extends EntityToken {
     text = Character.toString(currentChar);
     type = null;
 
-    switch (currentChar) {
-      case '(':
-      case ')':
-      case ',':
-      case '€':
-      case '$':
-      case ':':
+    switch (text) {
+      case "(":
+      case ")":
+      case ",":
+      case "€":
+      case "$":
+      case ":":
         nextChar();
         break;
 
       default:
         type = ERROR;
-        nextChar(); // consume bad character
+        nextChar();
     }
     if (type == null) {
       type = EntityTokenType.SPECIAL_SYMBOLS.get(text);

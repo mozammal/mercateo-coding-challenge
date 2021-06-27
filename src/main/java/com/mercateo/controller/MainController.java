@@ -1,4 +1,4 @@
-package com.mercateo;
+package com.mercateo.controller;
 
 import com.mercateo.exception.ExceptionHandler;
 import com.mercateo.exception.FileNotFoundException;
@@ -37,14 +37,11 @@ public class MainController {
   }
 
   public static void main(String[] args) {
-    String pathName = "E:/mercateo-coding-challenge/src/main/resources/test";
     Thread.currentThread().setUncaughtExceptionHandler(new ExceptionHandler());
-
     if (args == null || args.length == 0) {
       throw new FileNotFoundException("file not found");
     }
-
-    MainController mainController = new MainController(pathName);
+    MainController mainController = new MainController(args[0]);
     mainController.runApp();
   }
 }
