@@ -1,5 +1,6 @@
 package com.mercateo.service;
 
+import com.mercateo.model.Entity;
 import com.mercateo.model.Item;
 import com.mercateo.model.Package;
 
@@ -17,7 +18,7 @@ public class BruteForcePackageSolver implements PackageSolver {
   }
 
   @Override
-  public List<Item> getResult() {
+  public List<?extends Entity> getResult() {
     return algorithm.findSolution(aPackage);
   }
 }

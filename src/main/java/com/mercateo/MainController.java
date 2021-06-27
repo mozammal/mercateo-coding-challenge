@@ -6,6 +6,8 @@ import com.mercateo.parser.entity.EntityScanner;
 import com.mercateo.parser.FileReader;
 import com.mercateo.model.Package;
 import com.mercateo.service.*;
+import com.mercateo.view.ConsoleDisplayView;
+import com.mercateo.view.DisplayView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,21 +27,18 @@ public class MainController {
     this.packages = (List<Package>) parserService.getEntityFrom(fileName);
   }
 
+  public void consoleDisplayView(List<Item> items) {
+    DisplayView displayView = new ConsoleDisplayView();
+    displayView.display(items);
+  }
+
   public void runApp() {
 
     for (Package aPackage : packages) {
       Algorithm algorithm = new BruteForceSearch();
       PackageSolver packageSolver = new BruteForcePackageSolver(aPackage, algorithm);
-      List<Item> result = packageSolver.getResult();
-      StringBuilder sb = new StringBuilder();
-      for (Item item : result) {
-        sb.append(item.getId()).append(",");
-      }
-      if (sb.length() == 0) {
-        System.out.println("-");
-      } else {
-        System.out.println(sb.substring(0, sb.length() - 1));
-      }
+      List<Item> result = (List<Item>) packageSolver.getResult();
+      consoleDisplayView(result);
     }
   }
 
