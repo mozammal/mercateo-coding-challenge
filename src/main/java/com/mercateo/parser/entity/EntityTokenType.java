@@ -13,7 +13,7 @@ public enum EntityTokenType implements TokenType {
   DOLLAR_SYMBOL("$"),
   RIGHT_PAREN(")"),
   INTEGER,
-  REAL,
+  REAL_NUMBER,
   ERROR;
 
   private String text;

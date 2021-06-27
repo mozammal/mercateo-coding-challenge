@@ -1,6 +1,6 @@
 package com.mercateo.parser.entity;
 
-import com.mercateo.exception.EntitySyntaxViolation;
+import com.mercateo.exception.InvalidTokenException;
 import com.mercateo.model.Entity;
 import com.mercateo.model.Item;
 import com.mercateo.model.EntityFactory;
@@ -11,57 +11,71 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EntityParser extends Parser {
+import static com.mercateo.exception.ExceptionMessageFormatter.formatParserExceptionMsg;
 
-  private List<String> parseRules;
+public class EntityDeserializerParser extends Parser {
+
+  private List<String> tokenOrderList;
 
   private Token token;
 
-  public EntityParser(Scanner scanner) {
+  public EntityDeserializerParser(Scanner scanner) {
     super(scanner);
-    parseRules =
+    tokenOrderList =
         Arrays.asList(
-            "REAL", "COMMA", "REAL", "COMMA", "EURO_SYMBOL/DOLLAR_SYMBOL", "REAL", "RIGHT_PAREN");
+            "INTEGER/REAL_NUMBER",
+            "SEMI_COLON",
+            "LEFT_PAREN",
+            "INTEGER",
+            "COMMA",
+            "INTEGER/REAL_NUMBER",
+            "COMMA",
+            "EURO_SYMBOL/DOLLAR_SYMBOL",
+            "INTEGER/REAL_NUMBER",
+            "RIGHT_PAREN");
   }
 
   private Double getLeftEntity() {
     Double packageCapacity;
     if (!(token instanceof NumberToken)) {
-      throw new EntitySyntaxViolation(
-          "Unknown token at: " + token.getTokenDetails() + " Must be a Number");
+      throw new InvalidTokenException(formatParserExceptionMsg(token, tokenOrderList.get(0)));
     }
     packageCapacity = Double.valueOf(token.getText());
     token = nextToken();
     if (!(token.getType() == EntityTokenType.SEMI_COLON)) {
-      throw new EntitySyntaxViolation(
-          "Unknown token at: " + token.getTokenDetails() + "\nMust be a Semicolon");
+
+      throw new InvalidTokenException(formatParserExceptionMsg(token, tokenOrderList.get(1)));
     }
     return packageCapacity;
+  }
+
+  private void raiseExceptionIfInvalidToken(Token token, String expectedToken) {
+    String type = token.getType().toString();
+    if (expectedToken.equals("INTEGER") && token.getType() != EntityTokenType.INTEGER) {
+      throw new InvalidTokenException(formatParserExceptionMsg(token, expectedToken));
+    } else if (!expectedToken.contains(type)) {
+      throw new InvalidTokenException(formatParserExceptionMsg(token, expectedToken));
+    }
   }
 
   private List<List<String>> getRightEntity() {
     List<List<String>> attrs = new ArrayList<>();
     while (!((token = nextToken()) instanceof EofLineToken)) {
       if (token.getType() != EntityTokenType.LEFT_PAREN) {
-        throw new EntitySyntaxViolation(
-            "Unknown token at: " + token.getTokenDetails() + "\nMust be a Left parenthesis");
+        throw new InvalidTokenException(formatParserExceptionMsg(token, tokenOrderList.get(2)));
       }
       List<String> itemAttrs = new ArrayList<>();
-      for (String rule : parseRules) {
+
+      for (String expectedToken : tokenOrderList.subList(3, tokenOrderList.size())) {
         token = nextToken();
-        String type = token.getType().toString();
-        if (!rule.contains(type)) {
-          throw new EntitySyntaxViolation(
-              "Unknown token at: " + token.getTokenDetails() + " Must be a " + rule);
-        }
+        raiseExceptionIfInvalidToken(token, expectedToken);
         if (token instanceof NumberToken) {
           itemAttrs.add(token.getText());
         } else if ((token instanceof EntitySpecialSymbolToken)
-            && parseRules.get(4).contains(type)) {
+            && tokenOrderList.get(7).contains( token.getType().toString())) {
           itemAttrs.add(token.getText());
         }
       }
-
       attrs.add(new ArrayList<>(itemAttrs));
     }
     return attrs;

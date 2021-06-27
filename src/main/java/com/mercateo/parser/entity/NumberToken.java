@@ -3,7 +3,7 @@ package com.mercateo.parser.entity;
 import com.mercateo.parser.FileReader;
 import com.mercateo.parser.Token;
 
-import static com.mercateo.parser.entity.EntityTokenType.REAL;
+import static com.mercateo.parser.entity.EntityTokenType.*;
 
 public class NumberToken extends Token {
 
@@ -24,18 +24,25 @@ public class NumberToken extends Token {
     char exponentSign = '+';
     boolean sawDotDot = false;
     char currentChar;
-    type = REAL;
+    type = INTEGER;
 
     wholeDigits = unsignedIntegerDigits(textBuffer);
+    if (type == ERROR) {
+      return;
+    }
 
     currentChar = currentChar();
     if (currentChar == '.') {
       if (peekChar() == '.') {
         sawDotDot = true;
       } else {
+        type = REAL_NUMBER;
         textBuffer.append(currentChar);
         currentChar = nextChar();
         fractionDigits = unsignedIntegerDigits(textBuffer);
+        if (type == ERROR) {
+          return;
+        }
       }
     }
 
@@ -43,6 +50,7 @@ public class NumberToken extends Token {
     if (!sawDotDot && ((currentChar == 'E') || (currentChar == 'e'))) {
       textBuffer.append(currentChar);
       currentChar = nextChar();
+      type = REAL_NUMBER;
 
       if ((currentChar == '+') || (currentChar == '-')) {
         textBuffer.append(currentChar);
@@ -51,12 +59,17 @@ public class NumberToken extends Token {
       }
       exponentDigits = unsignedIntegerDigits(textBuffer);
     }
+    if (type == INTEGER && !isInteger(textBuffer.toString())) {
+      type = ERROR;
+      return;
+    }
   }
 
   private String unsignedIntegerDigits(StringBuilder textBuffer) {
     char currentChar = currentChar();
 
     if (!Character.isDigit(currentChar)) {
+      type = ERROR;
       return null;
     }
 
@@ -67,5 +80,14 @@ public class NumberToken extends Token {
       currentChar = nextChar();
     }
     return digits.toString();
+  }
+
+  private boolean isInteger(final String str) {
+    try {
+      Integer.valueOf(str.trim());
+      return true;
+    } catch (NumberFormatException nfe) {
+      return false;
+    }
   }
 }

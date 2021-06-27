@@ -16,13 +16,15 @@ public class MainController {
 
   private List<Package> packages;
 
-  public MainController(String fileName) {
-    this.parserService = new EntityParserService();
-    this.packages = (List<Package>) parserService.getEntityFrom(fileName);
+  private DisplayView displayView;
+
+  public MainController(String fileName, DisplayView displayView) {
+    this.parserService = new EntityParserService(fileName);
+    this.packages = (List<Package>) parserService.getEntity();
+    this.displayView = displayView;
   }
 
-  public void consoleDisplayView(List<Item> items) {
-    DisplayView displayView = new ConsoleDisplayView();
+  public void renderOnConsoleView(List<Item> items) {
     displayView.display(items);
   }
 
@@ -32,7 +34,7 @@ public class MainController {
       Algorithm algorithm = new BruteForceSearch();
       PackageSolver packageSolver = new BruteForcePackageSolver(aPackage, algorithm);
       List<Item> result = (List<Item>) packageSolver.getResult();
-      consoleDisplayView(result);
+      renderOnConsoleView(result);
     }
   }
 
@@ -41,7 +43,7 @@ public class MainController {
     if (args == null || args.length == 0) {
       throw new FileNotFoundException("file not found");
     }
-    MainController mainController = new MainController(args[0]);
+    MainController mainController = new MainController(args[0], new ConsoleDisplayView());
     mainController.runApp();
   }
 }
