@@ -5,6 +5,13 @@ import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *
+ *
+ * <h1>Config</h1>
+ *
+ * <p>This utility class represents configuration used throught the application
+ */
 public class Config {
 
   public static final String ITEM = "item";
@@ -19,9 +26,9 @@ public class Config {
 
   public static final String INTEGER_TOKEN = "INTEGER";
 
-  public static final String  ENTITY_DESERIALIZER = "entity-deserializer";
+  public static final String ENTITY_DESERIALIZER = "entity-deserializer";
 
-  public static final String  UTF = "UTF-8";
+  public static final String UTF = "UTF-8";
 
   public static final char EOL = '\n';
 
@@ -49,7 +56,7 @@ public class Config {
 
   public static final RoundingMode DEFAULT_ROUNDING = RoundingMode.HALF_UP;
 
-  public static MathContext context = new MathContext(120, RoundingMode.HALF_UP);
+  public static MathContext context = new MathContext(128, RoundingMode.HALF_UP);
 
   private Config() {}
 }

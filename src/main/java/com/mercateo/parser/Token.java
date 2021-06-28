@@ -1,5 +1,12 @@
 package com.mercateo.parser;
 
+/**
+ *
+ *
+ * <h1>Token</h1>
+ *
+ * <p>Token class that uses Scanner to extract token
+ */
 public class Token {
 
   protected TokenType type;
@@ -19,11 +26,16 @@ public class Token {
     extract();
   }
 
+  /**
+   * Default method to extract only one-character tokens After extracting the token, the current
+   * source line position is moved by one position
+   */
   protected void extract() {
     text = Character.toString(currentChar());
     nextChar();
   }
 
+  /** token details used for error messages */
   public String getTokenDetails() {
     StringBuilder message = new StringBuilder();
     message

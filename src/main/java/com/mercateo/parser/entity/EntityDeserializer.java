@@ -8,6 +8,13 @@ import com.mercateo.parser.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ *
+ * <h1>EntityDeserializer</h1>
+ *
+ * <p>Entity deserializer for deserializing the items and packages from the file
+ */
 public class EntityDeserializer extends Parser {
 
   private PackageDeserializer packageDeserializer;
@@ -22,16 +29,25 @@ public class EntityDeserializer extends Parser {
     this.itemsDeserializer = new ItemsDeserializer(scanner);
   }
 
+  /**
+   * Parse the source file and generate packages and items
+   */
   public List<? extends Entity> parse() {
     List<Entity> packages = new ArrayList<>();
 
+    // iterate each token until the end of file
     while (!((token = nextToken()) instanceof EofToken)) {
+
+      // is there a new line?
+      // then do nothing, new line is used to start a new package and items
       if (token instanceof EofLineToken) {
         continue;
       }
+
+      // set current token for package deserializer
       packageDeserializer.setToken(getToken());
-      Package aPackage = ((List<Package>) packageDeserializer.parse()).get(0);
-      List<Item> items = ((List<Item>) itemsDeserializer.parse());
+      Package aPackage = ((List<Package>) packageDeserializer.parse()).get(0); // get Package from the file string
+      List<Item> items = ((List<Item>) itemsDeserializer.parse());            // get items from the file string
       aPackage.setItems(items);
       packages.add(aPackage);
     }

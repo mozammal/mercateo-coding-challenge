@@ -8,6 +8,13 @@ import java.util.Objects;
 
 import static com.mercateo.config.Config.*;
 
+/**
+ *
+ *
+ * <h1>Money</h1>
+ *
+ * <p>Money static factory class that represents money
+ */
 public class Money {
 
   private BigDecimal amount;

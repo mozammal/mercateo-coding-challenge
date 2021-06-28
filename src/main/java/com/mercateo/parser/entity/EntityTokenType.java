@@ -5,7 +5,16 @@ import com.mercateo.parser.TokenType;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ *
+ * <h1>EntityTokenType</h1>
+ *
+ * <p>Entity token types
+ */
 public enum EntityTokenType implements TokenType {
+
+  // Special symbols
   SEMI_COLON(":"),
   LEFT_PAREN("("),
   COMMA(","),

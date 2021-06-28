@@ -7,13 +7,20 @@ import java.util.stream.Collectors;
 
 import static com.mercateo.utility.Utility.getSum;
 
-public class PackagingProblemAnswer implements Entity {
+/**
+ *
+ *
+ * <h1>PackagingProblemAnswer</h1>
+ *
+ * <p>This class represents the optimal solution
+ */
+public class PackagingProblemSolution implements Entity {
 
   private BigDecimal cost = new BigDecimal(Double.MIN_VALUE);
 
   private List<Item> items;
 
-  public PackagingProblemAnswer() {
+  public PackagingProblemSolution() {
     this.items = new ArrayList<>();
   }
 

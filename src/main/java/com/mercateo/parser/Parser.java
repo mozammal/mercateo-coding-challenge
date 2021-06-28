@@ -4,6 +4,13 @@ import com.mercateo.model.Entity;
 
 import java.util.List;
 
+/**
+ *
+ *
+ * <h1>Parser</h1>
+ *
+ * <p>Base parser class
+ */
 public abstract class Parser {
 
   private Scanner scanner;
@@ -24,5 +31,6 @@ public abstract class Parser {
     return scanner.getCurrentToken();
   }
 
+  /** parse a source program. Subclasses need to implement this */
   public abstract List<? extends Entity> parse();
 }

@@ -4,12 +4,20 @@ import com.mercateo.parser.FileReader;
 
 import static com.mercateo.parser.entity.EntityTokenType.ERROR;
 
-public class EntitySpecialSymbolToken extends EntityToken {
+/**
+ *
+ *
+ * <h1>SpecialSymbolToken</h1>
+ *
+ * <p>special symbol tokens.
+ */
+public class SpecialSymbolToken extends EntityToken {
 
-  public EntitySpecialSymbolToken(FileReader fileReader) {
+  public SpecialSymbolToken(FileReader fileReader) {
     super(fileReader);
   }
 
+  /** Extract special symbol token */
   protected void extract() {
     char currentChar = currentChar();
     text = Character.toString(currentChar);

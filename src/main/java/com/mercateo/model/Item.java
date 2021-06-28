@@ -1,12 +1,16 @@
 package com.mercateo.model;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.Objects;
 
+/**
+ *
+ *
+ * <h1>Item</h1>
+ *
+ * <p>Item that represents an item
+ */
 public class Item implements Entity {
-
 
   private Integer id;
 

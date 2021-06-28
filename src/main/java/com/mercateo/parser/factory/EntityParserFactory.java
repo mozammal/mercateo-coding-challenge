@@ -7,6 +7,13 @@ import com.mercateo.parser.Parser;
 
 import static com.mercateo.config.Config.*;
 
+/**
+ *
+ *
+ * <h1>EntityParserFactory</h1>
+ *
+ * <p>Entity parser factory for creating parser from the source file
+ */
 public class EntityParserFactory {
 
   public static Parser createParser(FileReader fileReader, String type) {

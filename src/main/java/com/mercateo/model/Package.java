@@ -4,6 +4,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ *
+ * <h1>Package</h1>
+ *
+ * <p>Package that represents a package
+ */
 public class Package implements Entity {
 
   private BigDecimal capacity;

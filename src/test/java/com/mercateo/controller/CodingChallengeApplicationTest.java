@@ -1,5 +1,7 @@
 package com.mercateo.controller;
 
+import com.mercateo.algorithm.Algorithm;
+import com.mercateo.algorithm.BruteForceSearch;
 import com.mercateo.exception.InvalidTokenException;
 import com.mercateo.model.*;
 import com.mercateo.model.Package;

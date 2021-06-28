@@ -15,6 +15,13 @@ import java.util.List;
 
 import static com.mercateo.config.Config.*;
 
+/**
+ *
+ *
+ * <h1>EntityDeserializerService</h1>
+ *
+ * <p>This class is responsible for deserializing packages and items from the source file
+ */
 public class EntityDeserializerService implements DeserializerService {
 
   private String pathName;
@@ -23,6 +30,7 @@ public class EntityDeserializerService implements DeserializerService {
     this.pathName = pathName;
   }
 
+  /** deserializes packages and items from the source file */
   @Override
   public List<? extends Entity> getEntity() {
     boolean absolutePath = false;

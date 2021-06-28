@@ -4,10 +4,18 @@ import com.mercateo.model.Item;
 
 import java.util.List;
 
+/**
+ *
+ *
+ * <h1>ConsoleDisplayView</h1>
+ *
+ * <p>This class displays output to the console
+ */
 public class ConsoleDisplayView implements DisplayView<Item> {
 
   public ConsoleDisplayView() {}
 
+  /** displays to the console */
   @Override
   public void display(List<Item> items) {
     StringBuilder sb = new StringBuilder();

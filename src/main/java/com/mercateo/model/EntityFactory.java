@@ -6,8 +6,16 @@ import java.util.List;
 
 import static com.mercateo.config.Config.*;
 
+/**
+ *
+ *
+ * <h1>EntityFactory</h1>
+ *
+ * <p>Factory that creates items and packages
+ */
 public class EntityFactory {
 
+  /** create items and packages from the properties */
   public static Entity create(List<String> properties, String type) {
 
     if (ITEM.equalsIgnoreCase(type)) {

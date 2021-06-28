@@ -6,6 +6,7 @@ public class EofToken extends Token {
     super(fileReader);
   }
 
+  /** Do nothing */
   @Override
   protected void extract() {}
 }
