@@ -36,14 +36,14 @@ public class CodingChallengeApplicationTest {
         Arrays.asList(
             new Item(
                 1,
-                Double.valueOf("15.3"),
+                new BigDecimal("15.3"),
                 Money.money(new BigDecimal("34"), Currency.getInstance(USD))),
             new Item(
                 2,
-                Double.valueOf("7.3"),
+                new BigDecimal("7.3"),
                 Money.money(new BigDecimal("12"), Currency.getInstance(USD))));
 
-    this.aPackage = new Package(Double.valueOf("8"), items);
+    this.aPackage = new Package(new BigDecimal("8"), items);
     this.attrs = Arrays.asList("1", "15.3", "$", "34");
     this.mockService = mock(DeserializerService.class);
     this.srcFile = "sampleInput.txt";

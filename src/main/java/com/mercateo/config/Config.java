@@ -1,5 +1,7 @@
 package com.mercateo.config;
 
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,6 +46,10 @@ public class Config {
 
   public static final List<String> packageTokenOrderList =
       Arrays.asList("INTEGER/REAL_NUMBER", "SEMI_COLON");
+
+  public static final RoundingMode DEFAULT_ROUNDING = RoundingMode.HALF_UP;
+
+  public static MathContext context = new MathContext(120, RoundingMode.HALF_UP);
 
   private Config() {}
 }

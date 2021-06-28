@@ -6,9 +6,9 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 
-public class Money {
+import static com.mercateo.config.Config.*;
 
-  private static final RoundingMode DEFAULT_ROUNDING = RoundingMode.HALF_EVEN;
+public class Money {
 
   private BigDecimal amount;
 

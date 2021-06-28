@@ -1,16 +1,20 @@
 package com.mercateo.model;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 public class Item implements Entity {
 
+
   private Integer id;
 
-  private Double weight;
+  private BigDecimal weight;
 
   private Money cost;
 
-  public Item(Integer id, Double weight, Money cost) {
+  public Item(Integer id, BigDecimal weight, Money cost) {
     this.weight = weight;
     this.cost = cost;
     this.id = id;
@@ -18,11 +22,11 @@ public class Item implements Entity {
 
   public Item() {}
 
-  public Double getWeight() {
+  public BigDecimal getWeight() {
     return weight;
   }
 
-  public void setWeight(Double weight) {
+  public void setWeight(BigDecimal weight) {
     this.weight = weight;
   }
 

@@ -3,6 +3,9 @@ package com.mercateo.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.mercateo.utility.Utility.getSum;
 
 public class PackagingProblemAnswer implements Entity {
 
@@ -30,7 +33,7 @@ public class PackagingProblemAnswer implements Entity {
     this.cost = cost;
   }
 
-  public Double getTotalWeight() {
-    return items.stream().mapToDouble(item -> item.getWeight()).sum();
+  public BigDecimal getTotalWeight() {
+    return getSum(items.stream().map(item -> item.getWeight()).collect(Collectors.toList()));
   }
 }

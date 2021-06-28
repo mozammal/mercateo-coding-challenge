@@ -1,28 +1,29 @@
 package com.mercateo.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Package implements Entity {
 
-  private Double capacity;
+  private BigDecimal capacity;
 
   private List<Item> items;
 
-  public Package(Double capacity, List<Item> items) {
+  public Package(BigDecimal capacity, List<Item> items) {
     this.capacity = capacity;
     this.items = items;
   }
 
-  public Package(Double capacity) {
+  public Package(BigDecimal capacity) {
     this(capacity, new ArrayList<>());
   }
 
-  public Double getCapacity() {
+  public BigDecimal getCapacity() {
     return capacity;
   }
 
-  public void setCapacity(Double capacity) {
+  public void setCapacity(BigDecimal capacity) {
     this.capacity = capacity;
   }
 
